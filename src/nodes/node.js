@@ -31,8 +31,8 @@ export default class Node {
   /**
    * Used for overloading the props of some types
    */
-  maybeAddMember(members: Object | Array<Object>) {
-    if (!this.raw.members) {
+  maybeAddMember(members: Object | Array<Object> | null) {
+    if (!this.raw.members || !members) {
       return;
     }
 

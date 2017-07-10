@@ -2,7 +2,7 @@
 import type { RawNode } from './nodes/node';
 
 import _ from 'lodash';
-import ts from 'typescript';
+import ts, {SyntaxKind} from 'typescript';
 import type { Node as TSNode } from 'typescript';
 
 import Node from './nodes/node';
@@ -65,7 +65,7 @@ export const stripDetailsFromTree = (root: RawNode) => {
 
 const collectNode = (node: RawNode, context: Node, factory: Factory) => {
   switch (node.kind) {
-    case ts.SyntaxKind.ModuleDeclaration:
+    case SyntaxKind.ModuleDeclaration:
       if (node.flags === 4098 || node.flags === 16 /* TODO: Replace with namespace flag enum */) {
         const namespace = factory.createNamespaceNode(node.name.text);
 
@@ -133,10 +133,10 @@ export function recursiveWalkTree(ast: any) {
   return root;
 }
 
-export function getMembersFromNode(node: any) {
+export function getMembersFromNode(node: any): Object | Array<Object> | null {
   if (node.members) {
     return node.members;
   }
-  
-  console.log('NO MEMBERS_', node)
+
+  return null
 }
